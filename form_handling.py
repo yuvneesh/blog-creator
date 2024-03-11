@@ -3,10 +3,12 @@ from wtforms import Form as wtform
 from wtforms import StringField, SubmitField, TextAreaField, FieldList, FormField, BooleanField
 from wtforms.validators import DataRequired
 import sqlite3
+from flask_ckeditor import CKEditorField
+
 
 class ContentSectionForm(wtform):
     section_heading = StringField('Section Heading', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
+    content = CKEditorField('Content', validators=[DataRequired()])
 
 class Scripts(wtform):
     scripts_id = StringField('Script-id')
@@ -63,3 +65,8 @@ class BlogPostForm(FlaskForm):
             sections_string += section["content"]
             sections_string += "\n\n"
         return sections_string
+    
+    def get_body(self) -> str:
+        """Get the body of the content passed in the rick text editor"""
+        data = self.sections.data[0]['content']
+        print(data)

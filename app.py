@@ -2,8 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for
 from form_handling import BlogPostForm
 from dotenv import load_dotenv
 import os
+from flask_ckeditor import CKEditor
 
 app = Flask(__name__)
+ckeditor = CKEditor(app)
+
 load_dotenv()
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -28,7 +31,8 @@ def index():
         
         elif form.submit.data:
             if form.validate():
-                form.to_database(app.dbString)
+                # form.to_database(app.dbString)
+                form.get_body()
                 return redirect(url_for('index')) # Redirect or display a success message
 
             
