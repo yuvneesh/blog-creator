@@ -17,6 +17,14 @@ def index():
         if form.add_section.data:
             form.sections.append_entry()
             return render_template("form.html", form=form)
+
+        if form.add_scripts_button.data:
+            form.scripts.append_entry()
+            return render_template("form.html", form=form)
+
+        if form.add_stylesheets_button.data:
+            form.stylesheets.append_entry()
+            return render_template("form.html", form=form)
         
         elif form.submit.data:
             if form.validate():

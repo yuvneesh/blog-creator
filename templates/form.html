@@ -13,15 +13,41 @@
 </head>
 <body>
   <div class="container">
-    <h1>Yuvneesh's Blog Post</h1>
+    <h1 class="text-center">Yuvneesh's Blog Post</h1>
     <br>
-    <div class="container h-50 overflow-auto">
-      <form method="POST">
+    <div class="container">
+      <form method="POST" class="fluid-width overflow-auto">
         {{ form.hidden_tag() }}
         <div class="grid-container">
           <div>{{ form.title.label }} {{ form.title() }}</div>
-          <div>{{ form.scripts.label }} {{ form.scripts() }}</div>
-          <div>{{ form.stylesheets.label }} {{ form.stylesheets() }}</div>
+
+          {% for section in form.scripts %}
+            <div class="row">
+              <div class="col-3">{{ section.scripts_id.label }}</div>
+              <div class="col-1">{{ section.scripts_async.label }}</div>
+              <div class="col-8">{{ section.scripts_link.label }}</div>
+            </div>
+            <div class="row">
+              <div class="col-3">{{ section.scripts_id() }}</div>
+              <div class="col-1">{{ section.scripts_async() }}</div>
+              <div class="col-8">{{ section.scripts_link() }}</div>  
+            </div>
+            {% endfor %}
+          
+          <div class="col-sm mb-3"> {{ form.add_scripts_button() }}</div>
+          
+          {% for section in form.stylesheets %}
+          <div class="row">
+            <div class="col-4">{{ section.stylesheets_id.label }}</div>
+            <div class="col-8">{{ section.stylesheets_link.label }}</div>
+          </div>
+          <div class="row">
+            <div class="col-3">{{ section.stylesheets_id() }}</div>
+            <div class="col-8">{{ section.stylesheets_link() }}</div>  
+          </div>
+
+          {% endfor %}
+          <div class="col-sm mb-3"> {{ form.add_stylesheets_button() }}</div>
         </div>
         {% for section in form.sections %}
         <div class="section-container">
